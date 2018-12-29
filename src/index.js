@@ -1,9 +1,11 @@
 // import _ from 'lodash'
 import './style.css'
-import Png from './share.png'
-import Date from './data.xml'
 import printMe from './print'
 import { cube } from './math.js'
+
+if (process.env.NODE_ENV !== 'production') {
+  console.log('looks like we are in development mode')
+}
 
 function component() {
   var element = document.createElement('div')
@@ -20,9 +22,6 @@ function component() {
   btn.onclick = printMe
 
   var myPng = new Image()
-  myPng.src = Png
-  console.log(Date)
-  element.appendChild(myPng)
   element.appendChild(btn)
   return element
 }

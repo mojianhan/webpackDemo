@@ -7,13 +7,19 @@ const webpack = require('webpack')
 module.exports = {
   // entry: './src/index.js',
   entry: {
-    app: './src/index.js'
+    app: './src/index.js',
     // print: './src/print.js'
+    another: './src/another-module.js'
   },
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
     hot: true
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   module: {
     rules: [
