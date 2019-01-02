@@ -3,10 +3,19 @@ import './style.css'
 import printMe from './print'
 import { cube } from './math.js'
 
-if (process.env.NODE_ENV !== 'production') {
-  console.log('looks like we are in development mode')
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   console.log('looks like we are in development mode')
+// }
 
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').then(registration => {
+      console.log('sw');
+    }).catch(registrationError => {
+      console.log(registrationError);
+    })
+  })
+}
 function component() {
   var element = document.createElement('div')
   var btn = document.createElement('button')

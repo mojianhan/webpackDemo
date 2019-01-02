@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const webpack = require('webpack')
-
+const WorkboxPlugin = require('workbox-webpack-plugin')
 
 module.exports = {
   // entry: './src/index.js',
@@ -11,7 +11,7 @@ module.exports = {
     // print: './src/print.js'
     another: './src/another-module.js'
   },
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: './dist',
     hot: true
@@ -58,11 +58,17 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    // new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'Output Management'
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new WorkboxPlugin.GenerateSW({
+      //这些选项帮助ServiceWorkers 快速启用
+      //不允许遗留任何“旧的”ServiceWorkers
+      clientsClaim: true,
+      skipWaiting: true
+    })
   ],
   output: {
     // filename: 'main.js',
